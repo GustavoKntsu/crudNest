@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// O início do seu arquivo continua igual (generator e datasource para sqlite)
+
+model Cinema {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  endereco    String  
+  salas      Sala[]
+  filmes     Filme[]
+  sessoes    Sessao[]
+}
+
+model Sala {
+  id         Int      @id @default(autoincrement())
+  numero     Int
+  capacidade Int
+  // SQLite não aceita int[][]. Salvaremos como String usando JSON.stringify() no código
+  poutronas  String   
+  cinemaId   Int
+  cinema     Cinema   @relation(fields: [cinemaId], references: [id])
+  sessoes    Sessao[]
+}
+
+model Filme {
+  id                  Int      @id @default(autoincrement())
+  titulo              String
+  sinopse             String
+  classificacao       String
+  duracao             DateTime 
+  elenco              String
+  // SQLite não suporta o tipo Enum nativo. Usaremos String.
+  genero              String   
+  dataInicialExibicao DateTime
+  dataFinalExibicao   DateTime
+  cinemaId            Int
+  cinema              Cinema   @relation(fields: [cinemaId], references: [id])
+  sessoes             Sessao[]
+}
+
+model Sessao {
+  id               Int        @id @default(autoincrement())
+  horacrioExibicao DateTime   // Mantido como 'horacrioExibicao' conforme o diagrama
+  cinemaId         Int
+  cinema           Cinema     @relation(fields: [cinemaId], references: [id])
+  salaId           Int
+  sala             Sala       @relation(fields: [salaId], references: [id])
+  filmeId          Int
+  filme            Filme      @relation(fields: [filmeId], references: [id])
+  ingressos        Ingresso[]
+}
+
+model Ingresso {
+  id           Int     @id @default(autoincrement())
+  valorInteira Float
+  valorMeia    Float
+  sessaoId     Int
+  sessao       Sessao  @relation(fields: [sessaoId], references: [id])
+  // Relacionamento opcional, pois o ingresso pode existir antes de ser vinculado a um pedido
+  pedidoId     Int?
+  pedido       Pedido? @relation(fields: [pedidoId], references: [id])
+}
+
+model LancheCombo {
+  id            Int    @id @default(autoincrement())
+  nome          String
+  descricao     String
+  valorUnitario Float
+  qtUnidade     Int
+  subtotal      Float
+  pedidoId      Int
+  pedido        Pedido @relation(fields: [pedidoId], references: [id])
+}
+
+model Pedido {
+  id         Int           @id @default(autoincrement())
+  qtInteira  Int
+  qtMeia     Int
+  valorTotal Float
+  ingressos  Ingresso[]
+  lanches    LancheCombo[]
+}
