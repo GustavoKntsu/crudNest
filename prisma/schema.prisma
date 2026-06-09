@@ -36,7 +36,7 @@ model Sala {
   numero     Int
   capacidade Int
   // SQLite não aceita int[][]. Salvaremos como String usando JSON.stringify() no código
-  poutronas  String   
+  poltronas  String   
   cinemaId   Int
   cinema     Cinema   @relation(fields: [cinemaId], references: [id])
   sessoes    Sessao[]

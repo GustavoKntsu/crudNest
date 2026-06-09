@@ -11,7 +11,7 @@ export class CreateSalaDto {
 
   @IsString({ message: 'O mapa de poltronas deve ser texto.' })
   @IsNotEmpty()
-  poutronas!: string; // Lembra-te que transformámos a matriz multidimensional numa String!
+  poltronas!: string; // Lembra-te que transformámos a matriz multidimensional numa String!
 
   @IsInt({ message: 'O ID do cinema deve ser um número inteiro.' })
   @IsNotEmpty()
