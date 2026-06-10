@@ -7,7 +7,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
     // O Prisma 7 só precisa do objeto com a URL direta pro arquivo
     const adapter = new PrismaBetterSqlite3({ url: 'file:./prisma/dev.db' });
-    
+
     super({ adapter });
   }
 

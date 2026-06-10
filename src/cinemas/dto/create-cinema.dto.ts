@@ -7,5 +7,5 @@ export class CreateCinemaDto {
 
   @IsString({ message: 'O endereço deve ser um texto válido.' })
   @IsNotEmpty({ message: 'O endereço não pode estar vazio.' })
-  endereco!: string; 
+  endereco!: string;
 }

@@ -1,4 +1,5 @@
 import { IsInt, IsNumber, IsString, IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateIngressoDto {
   @IsNumber({}, { message: 'O valor da inteira deve ser um número.' })
@@ -7,7 +8,7 @@ export class CreateIngressoDto {
 
   @IsNumber({}, { message: 'O valor da meia deve ser um número.' })
   @IsNotEmpty({ message: 'O valor da meia é obrigatório.' })
-  valorMeia!: number;    // <-- Adicionamos a Meia
+  valorMeia!: number; // <-- Adicionamos a Meia
 
   @IsString({ message: 'O lugar/assento deve ser um texto válido.' })
   @IsNotEmpty({ message: 'O lugar é obrigatório.' })
@@ -16,4 +17,7 @@ export class CreateIngressoDto {
   @IsInt({ message: 'O ID da sessão deve ser um número inteiro.' })
   @IsNotEmpty({ message: 'O ID da sessão é obrigatório.' })
   sessaoId!: number;
+
+  @ApiProperty({ required: false })
+  pedidoId?: number;
 }

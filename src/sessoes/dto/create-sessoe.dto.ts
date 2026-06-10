@@ -1,9 +1,15 @@
 import { IsInt, IsDateString, IsNotEmpty } from 'class-validator';
 
 export class CreateSessaoDto {
-  @IsDateString({}, { message: 'A hora de exibição deve ser uma data/hora válida em formato ISO.' })
+  @IsDateString(
+    {},
+    {
+      message:
+        'A hora de exibição deve ser uma data/hora válida em formato ISO.',
+    },
+  )
   @IsNotEmpty({ message: 'A hora de exibição é obrigatória.' })
-  horacrioExibicao!: string; 
+  horacrioExibicao!: string;
 
   @IsInt({ message: 'O ID do cinema deve ser um número inteiro.' })
   @IsNotEmpty()

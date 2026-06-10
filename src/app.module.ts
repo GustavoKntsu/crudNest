@@ -10,9 +10,17 @@ import { IngressosModule } from './ingressos/ingressos.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { LanchesModule } from './lanches/lanches.module';
 
-
 @Module({
-  imports: [PrismaModule, CinemasModule, SalasModule, FilmesModule, SessoesModule, IngressosModule, PedidosModule, LanchesModule],
+  imports: [
+    PrismaModule,
+    CinemasModule,
+    SalasModule,
+    FilmesModule,
+    SessoesModule,
+    IngressosModule,
+    PedidosModule,
+    LanchesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

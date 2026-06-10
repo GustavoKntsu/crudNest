@@ -12,7 +12,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  
+
   // É esta linha abaixo que cria a URL /api que você está tentando acessar!
   SwaggerModule.setup('api', app, document);
 

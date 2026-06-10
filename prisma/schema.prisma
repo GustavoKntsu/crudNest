@@ -47,12 +47,12 @@ model Filme {
   titulo              String
   sinopse             String
   classificacao       String
-  duracao             DateTime 
+  duracao             String 
   elenco              String
   // SQLite não suporta o tipo Enum nativo. Usaremos String.
   genero              String   
-  dataInicialExibicao DateTime
-  dataFinalExibicao   DateTime
+  dataInicialExibicao String
+  dataFinalExibicao   String
   cinemaId            Int
   cinema              Cinema   @relation(fields: [cinemaId], references: [id])
   sessoes             Sessao[]
@@ -60,7 +60,7 @@ model Filme {
 
 model Sessao {
   id               Int        @id @default(autoincrement())
-  horacrioExibicao DateTime   // Mantido como 'horacrioExibicao' conforme o diagrama
+  horacrioExibicao String   // Mantido como 'horacrioExibicao' conforme o diagrama
   cinemaId         Int
   cinema           Cinema     @relation(fields: [cinemaId], references: [id])
   salaId           Int
@@ -76,6 +76,7 @@ model Ingresso {
   valorMeia    Float
   sessaoId     Int
   sessao       Sessao  @relation(fields: [sessaoId], references: [id])
+  lugar        String
   // Relacionamento opcional, pois o ingresso pode existir antes de ser vinculado a um pedido
   pedidoId     Int?
   pedido       Pedido? @relation(fields: [pedidoId], references: [id])
@@ -88,8 +89,8 @@ model LancheCombo {
   valorUnitario Float
   qtUnidade     Int
   subtotal      Float
-  pedidoId      Int
-  pedido        Pedido @relation(fields: [pedidoId], references: [id])
+  pedidoId      Int?
+  pedido        Pedido? @relation(fields: [pedidoId], references: [id])
 }
 
 model Pedido {

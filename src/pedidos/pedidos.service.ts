@@ -10,7 +10,7 @@ export class PedidosService {
   create(createPedidoDto: CreatePedidoDto) {
     return this.prisma.pedido.create({
       // Como o DTO agora é idêntico ao Prisma, o "data" vai ficar verde!
-      data: createPedidoDto, 
+      data: createPedidoDto,
     });
   }
 
@@ -18,7 +18,7 @@ export class PedidosService {
     return this.prisma.pedido.findMany({
       include: {
         ingressos: true, // No plural, como manda o esquema!
-        lanches: true,   // Já deixamos os lanches mapeados também!
+        lanches: true, // Já deixamos os lanches mapeados também!
       },
     });
   }
